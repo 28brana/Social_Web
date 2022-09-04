@@ -3,6 +3,7 @@ import { defaultSettings } from '../config';
 import { SettingsProvider } from '../contexts/SettingsContext'
 
 import '../styles/globals.css'
+import ThemeProvider from '../theme';
 import { getSettings } from '../utils/getSettings';
 
 function MyApp({ Component, pageProps }) {
@@ -15,9 +16,14 @@ function MyApp({ Component, pageProps }) {
     setMounted(true);
   }, [])
 
+  const getLayout = Component.getLayout ?? ((page) => page);
+
+
   return (
     <SettingsProvider defaultSettings={settings}>
-      <Component {...pageProps} />
+      <ThemeProvider>
+        {getLayout(<Component {...pageProps} />)}
+      </ThemeProvider>
     </SettingsProvider>
   )
 }

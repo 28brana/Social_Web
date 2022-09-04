@@ -129,6 +129,7 @@ const palette = {
     mode: 'light',
     text: { primary: PRIMARY.darker, secondary: INFO.main, disabled: GREY[400] },
     background: {
+      secondary: SECONDARY.main,
       paper: NEUTRAL.lighter,
       default: PRIMARY.lighter,
       neutral: NEUTRAL.lighter,
@@ -163,6 +164,7 @@ const palette = {
     mode: 'dark',
     text: { primary: PRIMARY.lighter, secondary: INFO.light, disabled: GREY[700] },
     background: {
+      secondary: SECONDARY.main,
       paper: '#292929',
       default: PRIMARY.darker,
       neutral: NEUTRAL.darker,
