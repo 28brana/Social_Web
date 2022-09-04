@@ -17,7 +17,6 @@ export default function MainLayout({ children }) {
             <StyledContainer>
                 {children}
             </StyledContainer>
-
         </>
     )
 }

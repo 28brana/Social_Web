@@ -6,7 +6,7 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
     background: theme.palette.background.default,
     boxShadow: 'none',
     borderBottom: '1px solid',
-    borderBottomColor: theme.palette.mode === 'light' ? '#EBEBEB' : '#242424',
+    borderBottomColor: theme.palette.border,
 
 }));
 export default function Header() {

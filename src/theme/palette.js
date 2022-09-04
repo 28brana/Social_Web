@@ -136,6 +136,7 @@ const palette = {
       skeleton: { primary: COMMON.skeleton.light, secondary: COMMON.skeleton.lighter },
     },
     action: { active: GREY[600], ...COMMON.action },
+    border: '#EBEBEB',
     typography: {
       grey: '#717171',
       blackAndWhite: '#000000',
@@ -171,6 +172,7 @@ const palette = {
       skeleton: { primary: COMMON.skeleton.dark, secondary: COMMON.skeleton.darker },
     },
     action: { active: GREY[500], ...COMMON.action },
+    border: '#242424',
     typography: {
       grey: NEUTRAL.dark,
       blackAndWhite: '#ffffff',
