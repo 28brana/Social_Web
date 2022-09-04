@@ -15,5 +15,6 @@ export const HEADER = {
 
 export const SIDEBAR = {
     MAIN_SIDEBAR_WIDTH: 270,
+    MAIN_SIDEBAR_COLLAPSE_WIDTH: 100,
 
 };

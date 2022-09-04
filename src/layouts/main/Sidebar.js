@@ -1,11 +1,11 @@
-import { Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Switch } from '@mui/material';
+import { Divider, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Switch, Typography } from '@mui/material';
 import { styled, useTheme } from '@mui/material/styles';
-import { Chat, Compass, Fire, House, Moon, Power, Sun, Users } from 'phosphor-react'
+import { CaretDoubleLeft, Chat, Compass, Fire, House, Moon, Power, Sun, Users } from 'phosphor-react'
 import { useState } from 'react';
 import { SIDEBAR } from '../../config'
 import useSettings from '../../hooks/useSetting';
 
-const RootStyle = styled('div')(({ theme }) => ({
+const RootStyle = styled('div')(({ theme, collapse }) => ({
     position: 'fixed',
     top: 0,
     left: 0,
@@ -16,7 +16,10 @@ const RootStyle = styled('div')(({ theme }) => ({
     paddingTop: "100px",
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    ...(collapse && {
+        width: SIDEBAR.MAIN_SIDEBAR_COLLAPSE_WIDTH
+    })
 }));
 const StyledListItemButtom = styled(ListItemButton)(({ theme }) => ({
     borderRadius: 5,
@@ -26,6 +29,10 @@ const StyledListItemButtom = styled(ListItemButton)(({ theme }) => ({
         color: 'white',
     },
     alignItems: 'center',
+    padding: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: '12px'
 
 }));
 
@@ -81,6 +88,10 @@ const IOSSwitch = styled((props) => (
 }));
 
 export default function SideBar() {
+    const [collapse, setCollapse] = useState(false);
+    const handleCollapse = () => {
+        setCollapse(!collapse);
+    }
     const [select, setSelect] = useState(0);
     const handleSelect = (newValue) => {
         setSelect(newValue)
@@ -91,42 +102,54 @@ export default function SideBar() {
         {
             title: 'Home',
             icon: (
-                <House size={20} color={(select === 0 || theme.mode === 'dark') ? '#FFFFFF' : '#000000'} />
+                <House size={22} weight={select === 0 ? 'bold' : 'regular'} color={(select === 0 || theme.mode === 'dark') ? '#FFFFFF' : '#000000'} />
             ),
             path: '/'
         },
         {
             title: 'Messages',
             icon: (
-                <Chat size={20} color={(select === 1 || theme.mode === 'dark') ? '#FFFFFF' : '#000000'} />
+                <Chat size={20} weight={select === 1 ? 'bold' : 'regular'} color={(select === 1 || theme.mode === 'dark') ? '#FFFFFF' : '#000000'} />
             ),
             path: '/'
         },
         {
             title: 'Explore',
             icon: (
-                <Compass size={20} color={(select === 2 || theme.mode === 'dark') ? '#FFFFFF' : '#000000'} />
+                <Compass size={20} weight={select === 2 ? 'bold' : 'regular'} color={(select === 2 || theme.mode === 'dark') ? '#FFFFFF' : '#000000'} />
             ),
             path: '/'
         },
         {
             title: 'Notifications',
             icon: (
-                <Fire size={20} color={(select === 3 || theme.mode === 'dark') ? '#FFFFFF' : '#000000'} />
+                <Fire size={20} weight={select === 3 ? 'bold' : 'regular'} color={(select === 3 || theme.mode === 'dark') ? '#FFFFFF' : '#000000'} />
             ),
             path: '/'
         },
         {
             title: 'Friend Requests',
             icon: (
-                <Users size={20} color={(select === 4 || theme.mode === 'dark') ? '#FFFFFF' : '#000000'} />
+                <Users size={20} weight={select === 4 ? 'bold' : 'regular'} color={(select === 4 || theme.mode === 'dark') ? '#FFFFFF' : '#000000'} />
             ),
             path: '/'
         },
 
     ]
     return (
-        <RootStyle>
+        <RootStyle collapse={collapse}>
+            <IconButton
+                onClick={handleCollapse}
+                sx={{
+                    position: 'absolute',
+                    top: '80px',
+                    left: collapse ? '30px' : '210px',
+                    zIndex: 99999,
+                }}
+            >
+                <CaretDoubleLeft size={22} color={theme.text.primary} />
+            </IconButton>
+
             <List sx={{
                 padding: 3,
 
@@ -136,8 +159,14 @@ export default function SideBar() {
                         <StyledListItemButtom key={index} selected={select === index} onClick={() => handleSelect(index)}>
                             {element.icon}
 
-                            <ListItemText>
-                                {element.title}
+                            <ListItemText sx={{
+                                ...(collapse && {
+                                    display: 'none'
+                                }),
+                            }}>
+                                <Typography fontWeight={select === index ? 600 : 400}>
+                                    {element.title}
+                                </Typography>
                             </ListItemText>
                         </StyledListItemButtom>
                     ))
@@ -151,15 +180,23 @@ export default function SideBar() {
                     <ListItemButton sx={{ gap: '1.2em' }}>
                         <Power size={20} />
 
-                        <ListItemText>
+                        <ListItemText sx={{
+                            ...(collapse && {
+                                display: 'none'
+                            })
+                        }}>
                             Logout
                         </ListItemText>
                     </ListItemButton>
-                    <ListItem sx={{ gap: '1.2em' }}>
+                    <ListItem sx={{ gap: collapse ? 0 : '1.2em', justifyContent: 'center' }} >
                         {
-                            themeMode === 'dark' ? <Moon size={20} /> : <Sun size={20} />
+                            false && themeMode === 'dark' ? <Moon size={20} /> : <Sun size={20} />
                         }
-                        <ListItemText>
+                        <ListItemText sx={{
+                            ...(collapse && {
+                                display: 'none'
+                            })
+                        }}>
                             {
                                 themeMode === 'dark' ? "Dark Mode" : "Light Mode"
                             }
