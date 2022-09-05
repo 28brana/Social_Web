@@ -87,11 +87,7 @@ const IOSSwitch = styled((props) => (
     },
 }));
 
-export default function SideBar() {
-    const [collapse, setCollapse] = useState(false);
-    const handleCollapse = () => {
-        setCollapse(!collapse);
-    }
+export default function SideBar({ collapse, handleCollapse }) {
     const [select, setSelect] = useState(0);
     const handleSelect = (newValue) => {
         setSelect(newValue)

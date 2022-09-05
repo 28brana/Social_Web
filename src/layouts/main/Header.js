@@ -1,7 +1,6 @@
-import { AppBar, TextField, Avatar, Toolbar, Typography } from '@mui/material'
+import { AppBar, Toolbar, Typography } from '@mui/material'
 import React from 'react'
-import { styled, useTheme } from '@mui/material/styles';
-import { HEADER } from '../../config'
+import { styled } from '@mui/material/styles';
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
     background: theme.palette.background.default,
     boxShadow: 'none',

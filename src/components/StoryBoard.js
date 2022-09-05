@@ -1,13 +1,12 @@
-import { Avatar, Box, Stack, Typography, Tabs, Tab, tabsClasses } from '@mui/material';
+import { Avatar, Box, Stack, Typography, Tabs, Tab, tabsClasses, IconButton, Icon } from '@mui/material';
 import { styled, useTheme } from '@mui/material/styles';
-import { ArrowArcLeft } from 'phosphor-react';
+import { ArrowArcLeft, CaretLeft, CaretRight } from 'phosphor-react';
 import { useState } from 'react';
 const RootStyle = styled('div')(({ theme }) => ({
-    borderRadius: 5,
-    border: '1px solid',
+    borderRadius: 8,
     borderColor: theme.palette.border,
-    padding: theme.spacing(2),
-    background: theme.palette.background.default
+    padding: theme.spacing(0.5),
+    background: theme.palette.background.default,
 }))
 const ImageContainer = styled('div')(({ theme }) => ({
     backgroundOrigin: 'padding-box, border-box',
@@ -24,6 +23,28 @@ const ImageContainer = styled('div')(({ theme }) => ({
 
 }))
 
+const StyledIconButtonLeft = styled(IconButton)(({ theme }) => ({
+    position: 'absolute',
+    top: '30%',
+    zIndex: 9,
+    boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
+    background: theme.palette.background.neutral,
+    ':hover': {
+        background: theme.palette.background.neutral,
+    }
+}))
+const StyledIconButtonRight = styled(IconButton)(({ theme }) => ({
+    boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
+    zIndex: 9,
+    position: 'absolute',
+    top: '30%',
+    right: 0,
+    background: theme.palette.background.neutral,
+    ':hover': {
+        background: theme.palette.background.neutral,
+    }
+}))
+
 const Story = ({ data }) => {
     const theme = useTheme()
     return (
@@ -33,7 +54,7 @@ const Story = ({ data }) => {
                     background: theme.palette.text.disabled,
                 })
             }}>
-                <Avatar alt={data.name} sx={{
+                <Avatar src={data.image} alt={data.name} sx={{
                     width: 56,
                     height: 56,
                     border: '1px solid white'
@@ -61,6 +82,7 @@ export default function StoryBoard() {
         setValue(index);
         data[index].isSeen = true;
     }
+    const theme = useTheme();
     return (
         <RootStyle>
             <Tabs
@@ -75,12 +97,27 @@ export default function StoryBoard() {
                         display: 'none'
                     },
                     [`& .${tabsClasses.scrollButtons}`]: {
-                        '&.Mui-disabled': { opacity: 0.3 },
+                        '&.Mui-disabled': { opacity: 0 },
                     },
                     'button': {
                         padding: 1
+                    },
+                    position: 'relative',
+                }}
+                ScrollButtonComponent={(props) => {
+                    if (props.direction === 'left') {
+                        return <StyledIconButtonLeft {...props}>
+                            <CaretLeft size={16} color={theme.palette.icon.active} />
+                        </StyledIconButtonLeft>
+                    } else if (props.direction === 'right') {
+                        return <StyledIconButtonRight {...props}>
+                            <CaretRight size={16} color={theme.palette.icon.active} />
+                        </StyledIconButtonRight>
+                    } else {
+                        return null;
                     }
-                }}>
+                }}
+            >
                 {
                     data.map((element, index) => (
                         <Tab key={index} label={<Story data={element} />} />
@@ -95,102 +132,102 @@ export default function StoryBoard() {
 const data = [
     {
         name: 'Jai Sharma',
-        image: '',
+        image: 'https://i.pravatar.cc/300',
         isSeen: false,
     },
     {
         name: 'Jai Sharma',
-        image: '',
+        image: 'https://i.pravatar.cc/300',
         isSeen: false,
     },
     {
         name: 'Jai Sharma',
-        image: '',
+        image: 'https://i.pravatar.cc/300',
         isSeen: false,
     },
     {
         name: 'Jai Sharma',
-        image: '',
+        image: 'https://i.pravatar.cc/300',
         isSeen: false,
     },
     {
         name: 'Jai Sharma',
-        image: '',
+        image: 'https://i.pravatar.cc/300',
         isSeen: false,
     },
     {
         name: 'Jai Sharma',
-        image: '',
+        image: 'https://i.pravatar.cc/300',
         isSeen: false,
     },
     {
         name: 'Jai Sharma',
-        image: '',
+        image: 'https://i.pravatar.cc/300',
         isSeen: false,
     },
     {
         name: 'Jai Sharma',
-        image: '',
+        image: 'https://i.pravatar.cc/300',
         isSeen: false,
     },
     {
         name: 'Jai Sharma',
-        image: '',
+        image: 'https://i.pravatar.cc/300',
         isSeen: false,
     },
     {
         name: 'Jai Sharma',
-        image: '',
+        image: 'https://i.pravatar.cc/300',
         isSeen: false,
     },
     {
         name: 'Jai Sharma',
-        image: '',
+        image: 'https://i.pravatar.cc/300',
         isSeen: false,
     },
     {
         name: 'Jai Sharma',
-        image: '',
+        image: 'https://i.pravatar.cc/300',
         isSeen: false,
     },
     {
         name: 'Jai Sharma',
-        image: '',
+        image: 'https://i.pravatar.cc/300',
         isSeen: false,
     },
     {
         name: 'Jai Sharma',
-        image: '',
+        image: 'https://i.pravatar.cc/300',
         isSeen: false,
     },
     {
         name: 'Jai Sharma',
-        image: '',
+        image: 'https://i.pravatar.cc/300',
         isSeen: false,
     },
     {
         name: 'Jai Sharma',
-        image: '',
+        image: 'https://i.pravatar.cc/300',
         isSeen: false,
     },
     {
         name: 'Jai Sharma',
-        image: '',
+        image: 'https://i.pravatar.cc/300',
         isSeen: false,
     },
     {
         name: 'Jai Sharma',
-        image: '',
+        image: 'https://i.pravatar.cc/300',
         isSeen: false,
     },
     {
         name: 'Jai Sharma',
-        image: '',
+        image: 'https://i.pravatar.cc/300',
         isSeen: false,
     },
     {
         name: 'Jai Sharma',
-        image: '',
+        image: 'https://i.pravatar.cc/300',
         isSeen: false,
     },
 ]
