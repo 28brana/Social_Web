@@ -3,6 +3,7 @@ import { styled, useTheme } from '@mui/material/styles';
 import Image from 'next/image';
 import { BookmarkSimple, Chat, DotsThreeVertical, Fire, PaperPlaneTilt } from 'phosphor-react';
 import { useEffect, useState } from 'react';
+import PostSlider from './PostSlider';
 const RootStyle = styled('div')(({ theme }) => ({
     borderRadius: 8,
     border: theme.palette.border,
@@ -68,9 +69,33 @@ export default function PostCard() {
                 </Stack>
                 <DotsThreeVertical />
             </Stack>
-            <ImageContainer>
-                <Image src={'https://loremflickr.com/320/240'} layout="fill" objectFit="cover" />
-            </ImageContainer>
+            <PostSlider>
+                <ImageContainer>
+                    <Image src={'https://loremflickr.com/320/240'} layout="fill" objectFit="cover" />
+                </ImageContainer>
+                <ImageContainer>
+                    <Image src={'https://loremflickr.com/320/240'} layout="fill" objectFit="cover" />
+                </ImageContainer>
+                <ImageContainer>
+                    <Image src={'https://loremflickr.com/320/240'} layout="fill" objectFit="cover" />
+                </ImageContainer>
+                <ImageContainer>
+                    <Image src={'https://loremflickr.com/320/240'} layout="fill" objectFit="cover" />
+                </ImageContainer>
+                <ImageContainer>
+                    <Image src={'https://loremflickr.com/320/240'} layout="fill" objectFit="cover" />
+                </ImageContainer>
+                <ImageContainer>
+                    <Image src={'https://loremflickr.com/320/240'} layout="fill" objectFit="cover" />
+                </ImageContainer>
+                <ImageContainer>
+                    <Image src={'https://loremflickr.com/320/240'} layout="fill" objectFit="cover" />
+                </ImageContainer>
+                <ImageContainer>
+                    <Image src={'https://loremflickr.com/320/240'} layout="fill" objectFit="cover" />
+                </ImageContainer>
+            </PostSlider>
+
 
             <Stack py={1} px={2} spacing={2}>
                 <Stack direction={'row'} justifyContent={'space-between'} >

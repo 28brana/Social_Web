@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react'
 import { defaultSettings } from '../config';
 import { SettingsProvider } from '../contexts/SettingsContext'
 
+// Import slick css files
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 import '../styles/globals.css'
 import ThemeProvider from '../theme';
 import { getSettings } from '../utils/getSettings';
