@@ -65,11 +65,10 @@ const StyledMuteButton = styled('div')(({ theme }) => ({
     background: '#262626',
 }))
 
-const VideoComponent = ({ src }) => {
-    const [isMute, setIsMute] = useState(true);
+const VideoComponent = ({ src, isMute, handleToggleMute }) => {
     const videoRef = useRef(null);
-    const handleToggleMute = () => {
-        setIsMute(!isMute);
+    const handleMute = () => {
+        handleToggleMute();
         videoRef.current.muted = !isMute;
     }
 
@@ -82,7 +81,6 @@ const VideoComponent = ({ src }) => {
 
     // 1. Audio useState make globally one for all
     // 2. one video play rest will stop
-
     return (
         <Box sx={{ position: 'relative', maxHeight: '50vh' }}>
             <StyledVideo
@@ -93,7 +91,7 @@ const VideoComponent = ({ src }) => {
                 muted="muted"
                 playsInline //FIX iOS black screen
             />
-            <StyledMuteButton onClick={handleToggleMute}>
+            <StyledMuteButton onClick={handleMute}>
                 {
                     isMute ?
                         <SpeakerSimpleSlash size={16} color={'#FFFFFF'} weight="fill" />
@@ -108,7 +106,7 @@ const VideoComponent = ({ src }) => {
 
 
 
-export default function PostCard() {
+export default function PostCard({ isMute, handleToggleMute }) {
     const theme = useTheme();
     const text = 'Hi every one yes its me  \nhow are u okay fine \nno need to say';
     const [isCollapse, setIsCollapse] = useState(true);
@@ -136,8 +134,8 @@ export default function PostCard() {
                 <DotsThreeVertical />
             </Stack>
             <PostSlider>
-                <VideoComponent src={testVideoUrl} />
-                <VideoComponent src={testVideoUrl} />
+                <VideoComponent src={testVideoUrl} isMute={isMute} handleToggleMute={handleToggleMute} />
+                <VideoComponent src={testVideoUrl} isMute={isMute} handleToggleMute={handleToggleMute} />
                 <ImageContainer>
                     <Image src={'https://loremflickr.com/320/240'} layout="fill" objectFit="cover" />
                 </ImageContainer>
