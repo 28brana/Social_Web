@@ -21,6 +21,10 @@ export default function Home() {
         <StoryBoard />
         <div>
           <PostCard />
+          <PostCard />
+          <PostCard />
+          <PostCard />
+          <PostCard />
         </div>
       </Stack>
     </RootStyle>

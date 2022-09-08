@@ -37,6 +37,7 @@ function PostSlider({ children }) {
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
+        adaptiveHeight: true,
     };
     return (
         <StyledSlider {...settings} >

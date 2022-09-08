@@ -1,9 +1,11 @@
-import { Avatar, Typography, Stack, Box, Button, TextField } from '@mui/material';
+import { Avatar, Typography, Stack, Box, Button, TextField, CardMedia, Card } from '@mui/material';
 import { styled, useTheme } from '@mui/material/styles';
 import Image from 'next/image';
-import { BookmarkSimple, Chat, DotsThreeVertical, Fire, PaperPlaneTilt } from 'phosphor-react';
-import { useEffect, useState } from 'react';
+import { BookmarkSimple, Chat, DotsThreeVertical, Fire, FireSimple, PaperPlaneTilt, SpeakerSimpleHigh, SpeakerSimpleSlash } from 'phosphor-react';
+import { useEffect, useRef, useState } from 'react';
+import { testVideoUrl } from '../config';
 import PostSlider from './PostSlider';
+// import myVideo from '../assets/video.mp4'
 const RootStyle = styled('div')(({ theme }) => ({
     borderRadius: 8,
     border: theme.palette.border,
@@ -39,6 +41,70 @@ const StyledMoreBtn = styled('span')(({ theme }) => ({
     cursor: 'pointer'
 }))
 
+const StyledVideo = styled('video')(({ theme }) => ({
+    objectFit: 'contain',
+    width: '100%',
+    height: '100%',
+    maxHeight: '50vh',
+    [theme.breakpoints.down('md')]: {
+
+    },
+}))
+
+const StyledMuteButton = styled('div')(({ theme }) => ({
+    position: 'absolute',
+    right: 20,
+    bottom: 20,
+    borderRadius: '50%',
+    width: 30,
+    height: 30,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: 'pointer',
+    background: '#262626',
+}))
+
+const VideoComponent = ({ src }) => {
+    const [isMute, setIsMute] = useState(true);
+    const videoRef = useRef(null);
+    const handleToggleMute = () => {
+        setIsMute(!isMute);
+        videoRef.current.muted = !isMute;
+    }
+
+    useEffect(() => {
+        videoRef.current.play();
+        return () => {
+            videoRef.current.pause();
+        }
+    }, [])
+
+    // 1. Audio useState make globally one for all
+    // 2. one video play rest will stop
+
+    return (
+        <Box sx={{ position: 'relative', maxHeight: '50vh' }}>
+            <StyledVideo
+                ref={videoRef}
+                src={src}
+                loop
+                autoPlay
+                muted="muted"
+                playsInline //FIX iOS black screen
+            />
+            <StyledMuteButton onClick={handleToggleMute}>
+                {
+                    isMute ?
+                        <SpeakerSimpleSlash size={16} color={'#FFFFFF'} weight="fill" />
+                        :
+                        <SpeakerSimpleHigh size={16} color={'#FFFFFF'} weight="fill" />
+                }
+            </StyledMuteButton>
+        </Box>
+    )
+}
+
 
 
 
@@ -70,24 +136,8 @@ export default function PostCard() {
                 <DotsThreeVertical />
             </Stack>
             <PostSlider>
-                <ImageContainer>
-                    <Image src={'https://loremflickr.com/320/240'} layout="fill" objectFit="cover" />
-                </ImageContainer>
-                <ImageContainer>
-                    <Image src={'https://loremflickr.com/320/240'} layout="fill" objectFit="cover" />
-                </ImageContainer>
-                <ImageContainer>
-                    <Image src={'https://loremflickr.com/320/240'} layout="fill" objectFit="cover" />
-                </ImageContainer>
-                <ImageContainer>
-                    <Image src={'https://loremflickr.com/320/240'} layout="fill" objectFit="cover" />
-                </ImageContainer>
-                <ImageContainer>
-                    <Image src={'https://loremflickr.com/320/240'} layout="fill" objectFit="cover" />
-                </ImageContainer>
-                <ImageContainer>
-                    <Image src={'https://loremflickr.com/320/240'} layout="fill" objectFit="cover" />
-                </ImageContainer>
+                <VideoComponent src={testVideoUrl} />
+                <VideoComponent src={testVideoUrl} />
                 <ImageContainer>
                     <Image src={'https://loremflickr.com/320/240'} layout="fill" objectFit="cover" />
                 </ImageContainer>
@@ -100,7 +150,7 @@ export default function PostCard() {
             <Stack py={1} px={2} spacing={2}>
                 <Stack direction={'row'} justifyContent={'space-between'} >
                     <Stack direction={'row'} spacing={2}>
-                        <Fire size={24} />
+                        <FireSimple size={24} color="#fa0000" weight="fill" />
                         <Chat size={24} />
                         <PaperPlaneTilt size={24} />
                     </Stack>
