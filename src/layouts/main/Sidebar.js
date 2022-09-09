@@ -27,12 +27,16 @@ const StyledListItemButtom = styled(ListItemButton)(({ theme }) => ({
     '&.Mui-selected': {
         background: theme.palette.background.secondary,
         color: 'white',
+        ':hover': {
+            background: theme.palette.background.secondary,
+        }
     },
     alignItems: 'center',
     padding: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: '12px'
+    marginTop: '12px',
+
 
 }));
 
