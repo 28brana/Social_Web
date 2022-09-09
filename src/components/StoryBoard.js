@@ -48,7 +48,7 @@ const StyledIconButtonRight = styled(IconButton)(({ theme }) => ({
 const Story = ({ data }) => {
     const theme = useTheme()
     return (
-        <Stack alignItem='center' spacing={1} justifyContent={'center'} >
+        <Stack alignitem='center' spacing={1} justifyContent={'center'} >
             <ImageContainer sx={{
                 ...(data.isSeen && {
                     background: theme.palette.text.disabled,
@@ -67,7 +67,8 @@ const Story = ({ data }) => {
                 textAlign: 'center',
                 ...(data.isSeen && {
                     color: theme.palette.text.disabled,
-                })
+                }),
+                color: theme.palette.text.primary
 
             }}>
                 {data.name}
@@ -90,7 +91,6 @@ export default function StoryBoard() {
                 onChange={handleChangeValue}
                 variant="scrollable"
                 aria-label="storys"
-                textColor='text.primary'
                 scrollButtons
                 sx={{
                     '.MuiTabs-indicator': {

@@ -1,9 +1,11 @@
-import { Avatar, Typography, Stack, Box, Button, TextField, CardMedia, Card } from '@mui/material';
+import { Avatar, Typography, Stack, Box, Button, TextField, CardMedia, Card, IconButton } from '@mui/material';
 import { styled, useTheme } from '@mui/material/styles';
 import Image from 'next/image';
 import { BookmarkSimple, Chat, DotsThreeVertical, Fire, FireSimple, PaperPlaneTilt, SpeakerSimpleHigh, SpeakerSimpleSlash } from 'phosphor-react';
 import { useEffect, useRef, useState } from 'react';
+import { useInViewport } from 'react-in-viewport';
 import { testVideoUrl } from '../config';
+import PostDialogBox from './PostDialogBox';
 import PostSlider from './PostSlider';
 // import myVideo from '../assets/video.mp4'
 const RootStyle = styled('div')(({ theme }) => ({
@@ -64,20 +66,43 @@ const StyledMuteButton = styled('div')(({ theme }) => ({
     cursor: 'pointer',
     background: '#262626',
 }))
+const StyledIconContainer = styled(Box)(({ theme }) => ({
+    borderRadius: '50%',
+    width: 30,
+    height: 30,
+    zIndex: 9,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: 'pointer',
+    ':hover': {
+        color: theme.palette.icon.neutral,
+    }
+}))
 
 const VideoComponent = ({ src, isMute, handleToggleMute }) => {
+    const Options = {
+        threshold: 0.8
+    }
     const videoRef = useRef(null);
     const handleMute = () => {
         handleToggleMute();
         videoRef.current.muted = !isMute;
     }
 
+    const { inViewport } = useInViewport(videoRef, Options);
     useEffect(() => {
-        videoRef.current.play();
-        return () => {
+        if (inViewport) {
+            // console.log("play ");
+            videoRef.current.play();
+        } else {
             videoRef.current.pause();
+            // console.log("pause ");
         }
-    }, [])
+        return () => {
+            videoRef.current?.pause();
+        }
+    }, [inViewport])
 
     // 1. Audio useState make globally one for all
     // 2. one video play rest will stop
@@ -88,7 +113,7 @@ const VideoComponent = ({ src, isMute, handleToggleMute }) => {
                 src={src}
                 loop
                 autoPlay
-                muted="muted"
+                muted={true}
                 playsInline //FIX iOS black screen
             />
             <StyledMuteButton onClick={handleMute}>
@@ -106,6 +131,7 @@ const VideoComponent = ({ src, isMute, handleToggleMute }) => {
 
 
 
+
 export default function PostCard({ isMute, handleToggleMute }) {
     const theme = useTheme();
     const text = 'Hi every one yes its me  \nhow are u okay fine \nno need to say';
@@ -119,6 +145,21 @@ export default function PostCard({ isMute, handleToggleMute }) {
     }
 
     let summery = `${text.split('\n')[0]}...`;
+
+
+    const [like, setLike] = useState(false);
+    const handleToggleLike = () => {
+        setLike(!like);
+    }
+
+    const [open, setOpen] = useState(false);
+    const handleOpenDialog = () => {
+        setOpen(true);
+    }
+    const handleClose = () => {
+        setOpen(false);
+    };
+
     return (
         <RootStyle>
             <Stack direction="row" p={1} alignItems={'center'} justifyContent={'space-between'}>
@@ -131,7 +172,9 @@ export default function PostCard({ isMute, handleToggleMute }) {
                         <Typography variant='caption' color='typography.subtitle2'>1hour</Typography>
                     </Box>
                 </Stack>
-                <DotsThreeVertical />
+                <StyledIconContainer onClick={handleOpenDialog}>
+                    <DotsThreeVertical size={24} />
+                </StyledIconContainer>
             </Stack>
             <PostSlider>
                 <VideoComponent src={testVideoUrl} isMute={isMute} handleToggleMute={handleToggleMute} />
@@ -148,11 +191,25 @@ export default function PostCard({ isMute, handleToggleMute }) {
             <Stack py={1} px={2} spacing={2}>
                 <Stack direction={'row'} justifyContent={'space-between'} >
                     <Stack direction={'row'} spacing={2}>
-                        <FireSimple size={24} color="#fa0000" weight="fill" />
-                        <Chat size={24} />
-                        <PaperPlaneTilt size={24} />
+
+                        <StyledIconContainer onClick={handleToggleLike}>
+                            {
+                                like ?
+                                    <FireSimple size={24} color="#fa0000" weight="fill" />
+
+                                    : <Fire size={24} onClick={handleToggleLike} />
+                            }
+                        </StyledIconContainer>
+                        <StyledIconContainer>
+                            <Chat size={24} />
+                        </StyledIconContainer>
+                        <StyledIconContainer>
+                            <PaperPlaneTilt size={24} />
+                        </StyledIconContainer>
                     </Stack>
-                    <BookmarkSimple size={24} />
+                    <StyledIconContainer>
+                        <BookmarkSimple size={24} />
+                    </StyledIconContainer>
                 </Stack>
                 <Typography variant='subtitle2' >1,550 likes</Typography>
                 <Typography variant='body2' component={'div'} >
@@ -189,6 +246,7 @@ export default function PostCard({ isMute, handleToggleMute }) {
                     }}>Post</Button>
                 </Stack>
             </Stack>
+            <PostDialogBox open={open} onClose={handleClose} />
         </RootStyle>
     )
 }
