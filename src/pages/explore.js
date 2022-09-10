@@ -1,5 +1,7 @@
-import { Box, ImageList, ImageListItem } from '@mui/material';
+import { Box, ImageList, ImageListItem, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { Stack } from '@mui/system';
+import { Chat, FireSimple } from 'phosphor-react';
 
 import Layout from "../layouts";
 Explore.getLayout = function getLayout(page) {
@@ -7,6 +9,29 @@ Explore.getLayout = function getLayout(page) {
 };
 
 const RootStyle = styled('div')(({ theme }) => ({
+
+}))
+const StyledItem = styled(ImageListItem)(({ theme }) => ({
+    position: 'relative',
+    '.overLay': {
+        visibility: 'hidden',
+        cursor: 'pointer',
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        top: 0,
+        zIndex: 1,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: '#00000052',
+        color: 'white',
+    },
+    ':hover': {
+        '.overLay': {
+            visibility: 'visible',
+        }
+    }
 
 }))
 
@@ -17,16 +42,26 @@ export default function Explore() {
 
     return (
         <RootStyle>
-            <ImageList variant="masonry" cols={4} gap={8}>
+            <ImageList variant="masonry" cols={4} gap={16}>
                 {itemData.map((item) => (
-                    <ImageListItem key={item.img}>
+                    <StyledItem key={item.img}>
                         <img
                             src={`${item.img}?w=248&fit=crop&auto=format`}
                             srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
                             alt={item.title}
                             loading="lazy"
                         />
-                    </ImageListItem>
+                        <Box className='overLay'>
+                            <Stack direction='row' spacing={0.5}>
+                                <FireSimple size={24} weight='fill' />
+                                <Typography >21</Typography>
+                            </Stack>
+                            <Stack direction='row' ml={2} spacing={0.5}>
+                                <Chat size={24} weight='fill' />
+                                <Typography>30</Typography>
+                            </Stack>
+                        </Box>
+                    </StyledItem>
                 ))}
             </ImageList>
         </RootStyle>

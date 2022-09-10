@@ -16,7 +16,7 @@ export default function SuggestionsBoard() {
             <List>
                 {
                     [...Array(5)].map((_, index) => (
-                        <ListItem >
+                        <ListItem key={index} >
                             <Stack direction="row" alignItems={'center'} sx={{ width: '100%' }} >
                                 <Avatar />
                                 <ListItemText primary={<Typography variant='subtitle2' sx={{ lineHeight: '0.8' }}>Rohan Negi</Typography>} secondary={

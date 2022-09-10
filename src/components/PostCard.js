@@ -5,6 +5,8 @@ import { BookmarkSimple, Chat, DotsThreeVertical, Fire, FireSimple, PaperPlaneTi
 import { useEffect, useRef, useState } from 'react';
 import { useInViewport } from 'react-in-viewport';
 import { testVideoUrl } from '../config';
+import PostCommentDialogBox from './PostCommentDialogBox';
+import PostComments from './PostComment';
 import PostDialogBox from './PostDialogBox';
 import PostSlider from './PostSlider';
 // import myVideo from '../assets/video.mp4'
@@ -153,12 +155,21 @@ export default function PostCard({ isMute, handleToggleMute }) {
     }
 
     const [open, setOpen] = useState(false);
+    const [openComment, setOpenComment] = useState(false);
+    const handleOpenComment = () => {
+        setOpenComment(true);
+    }
+    const handleCloseComment = () => {
+
+        setOpenComment(false);
+    }
     const handleOpenDialog = () => {
         setOpen(true);
     }
     const handleClose = () => {
         setOpen(false);
     };
+
 
     return (
         <RootStyle>
@@ -200,7 +211,7 @@ export default function PostCard({ isMute, handleToggleMute }) {
                                     : <Fire size={24} onClick={handleToggleLike} />
                             }
                         </StyledIconContainer>
-                        <StyledIconContainer>
+                        <StyledIconContainer onClick={handleOpenComment}>
                             <Chat size={24} />
                         </StyledIconContainer>
                         <StyledIconContainer>
@@ -247,7 +258,7 @@ export default function PostCard({ isMute, handleToggleMute }) {
                 </Stack>
             </Stack>
             <PostDialogBox open={open} onClose={handleClose} />
+            <PostCommentDialogBox open={openComment} onClose={handleCloseComment} />
         </RootStyle>
     )
 }
-

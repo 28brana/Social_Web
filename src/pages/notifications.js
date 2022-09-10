@@ -1,5 +1,6 @@
-import { Avatar, AvatarGroup, Button, Collapse, Divider, List, ListItem, ListItemText, ListSubheader, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Avatar, AvatarGroup, Button, Collapse, Divider, List, ListItem, ListItemAvatar, ListItemText, ListSubheader, Typography } from '@mui/material';
+import { styled, useTheme } from '@mui/material/styles';
+import Image from 'next/image';
 import { CaretDown, CaretUp } from 'phosphor-react';
 import { useState } from 'react';
 
@@ -16,11 +17,12 @@ const RootStyle = styled('div')(({ theme }) => ({
 
 export default function Notifications() {
     const [open, setOpen] = useState(false);
+    const theme = useTheme();
     return (
         <RootStyle>
             <List
                 subheader={
-                    <ListSubheader component="div" >
+                    <ListSubheader component="div" color='primary' sx={{ background: theme.palette.background.default }} >
                         Friend Request
                     </ListSubheader>
                 }>
@@ -36,33 +38,33 @@ export default function Notifications() {
                 <Collapse in={open} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
                         <ListItem>
-                            <Avatar />
-                            <ListItemText sx={{ ml: '10px' }} primary={<Typography variant='body2'>Rohan starts follow you</Typography>}
+                            <ListItemAvatar>
+                                <Avatar />
+                            </ListItemAvatar>
+                            <ListItemText primary={<Typography variant='body2'>Rohan starts follow you</Typography>}
                                 secondary={<Typography variant='caption'>1 hour ago</Typography>} />
-                            <Button variant='contained' sx={{ mr: '12px' }}>Follow</Button>
-                            <Button variant='text' >Delete</Button>
+                            <Button variant='contained' color='secondary' sx={{ mr: '12px' }}>Confirm</Button>
+                            <Button variant='outlined' >Delete</Button>
                         </ListItem>
                         <ListItem>
-                            <Avatar />
-                            <ListItemText sx={{ ml: '10px' }} primary={<Typography variant='body2'>Rohan starts follow you</Typography>}
+                            <ListItemAvatar>
+                                <Avatar />
+                            </ListItemAvatar>
+                            <ListItemText primary={<Typography variant='body2'>Rohan starts follow you</Typography>}
                                 secondary={<Typography variant='caption'>1 hour ago</Typography>} />
-                            <Button variant='contained' sx={{ mr: '12px' }}>Follow</Button>
-                            <Button variant='text' >Delete</Button>
+                            <Button variant='contained' color='secondary' sx={{ mr: '12px' }}>Confirm</Button>
+                            <Button variant='outlined' >Delete</Button>
                         </ListItem>
                         <ListItem>
-                            <Avatar />
-                            <ListItemText sx={{ ml: '10px' }} primary={<Typography variant='body2'>Rohan starts follow you</Typography>}
+                            <ListItemAvatar>
+                                <Avatar />
+                            </ListItemAvatar>
+                            <ListItemText primary={<Typography variant='body2'>Rohan starts follow you</Typography>}
                                 secondary={<Typography variant='caption'>1 hour ago</Typography>} />
-                            <Button variant='contained' sx={{ mr: '12px' }}>Follow</Button>
-                            <Button variant='text' >Delete</Button>
+                            <Button variant='contained' color='secondary' sx={{ mr: '12px' }}>Confirm</Button>
+                            <Button variant='outlined' >Delete</Button>
                         </ListItem>
-                        <ListItem>
-                            <Avatar />
-                            <ListItemText sx={{ ml: '10px' }} primary={<Typography variant='body2'>Rohan starts follow you</Typography>}
-                                secondary={<Typography variant='caption'>1 hour ago</Typography>} />
-                            <Button variant='contained' sx={{ mr: '12px' }}>Follow</Button>
-                            <Button variant='text' >Delete</Button>
-                        </ListItem>
+
 
                     </List>
                 </Collapse>
@@ -70,42 +72,44 @@ export default function Notifications() {
             <Divider />
             <List
                 subheader={
-                    <ListSubheader component="div" >
+                    <ListSubheader component="div" color='primary' sx={{ background: theme.palette.background.default }} >
                         Notifications
                     </ListSubheader>
                 }>
                 <ListItem>
-                    <Avatar />
+                    <ListItemAvatar>
+                        <Avatar />
+                    </ListItemAvatar>
                     <ListItemText
                         sx={{ ml: '10px', lineHeight: '0.8px' }}
                         primary={<Typography variant='body2'>Rohan starts follow you</Typography>}
                         secondary={<Typography variant='caption'>1 hour ago</Typography>}
                     />
+                    <Image src={'https://loremflickr.com/320/240'} width={80} height={40} objectFit="cover" />
                 </ListItem>
                 <ListItem>
-                    <Avatar />
+                    <ListItemAvatar>
+                        <Avatar />
+                    </ListItemAvatar>
                     <ListItemText
                         sx={{ ml: '10px', lineHeight: '0.8px' }}
                         primary={<Typography variant='body2'>Rohan starts follow you</Typography>}
                         secondary={<Typography variant='caption'>1 hour ago</Typography>}
                     />
+                    <Image src={'https://loremflickr.com/320/240'} width={80} height={40} objectFit="cover" />
                 </ListItem>
                 <ListItem>
-                    <Avatar />
+                    <ListItemAvatar>
+                        <Avatar />
+                    </ListItemAvatar>
                     <ListItemText
                         sx={{ ml: '10px', lineHeight: '0.8px' }}
-                        primary={<Typography variant='body2'>Sonu likes your photo</Typography>}
+                        primary={<Typography variant='body2'>Rohan starts follow you</Typography>}
                         secondary={<Typography variant='caption'>1 hour ago</Typography>}
                     />
+                    <Image src={'https://loremflickr.com/320/240'} width={80} height={40} objectFit="cover" />
                 </ListItem>
-                <ListItem>
-                    <Avatar />
-                    <ListItemText
-                        sx={{ ml: '10px', lineHeight: '0.8px' }}
-                        primary={<Typography variant='body2'>Mohan Creates new post </Typography>}
-                        secondary={<Typography variant='caption'>1 hour ago</Typography>}
-                    />
-                </ListItem>
+
             </List>
         </RootStyle>
     )
