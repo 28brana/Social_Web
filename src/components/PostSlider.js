@@ -39,11 +39,14 @@ function PostSlider({ children }) {
         slidesToScroll: 1,
         adaptiveHeight: true,
     };
+    const handleChange = (e) => {
+        console.log({ e });
+    }
     return (
-        <StyledSlider {...settings} >
+        <StyledSlider {...settings} afterChange={handleChange}>
             {children}
         </StyledSlider>
     );
 }
 
-export default memo(PostSlider)
+export default PostSlider;

@@ -6,7 +6,6 @@ import { useEffect, useRef, useState } from 'react';
 import { useInViewport } from 'react-in-viewport';
 import { testVideoUrl } from '../config';
 import PostCommentDialogBox from './PostCommentDialogBox';
-import PostComments from './PostComment';
 import PostDialogBox from './PostDialogBox';
 import PostSlider from './PostSlider';
 // import myVideo from '../assets/video.mp4'
@@ -82,26 +81,44 @@ const StyledIconContainer = styled(Box)(({ theme }) => ({
     }
 }))
 
-const VideoComponent = ({ src, isMute, handleToggleMute }) => {
-    const Options = {
-        threshold: 0.8
-    }
+const VideoComponent = ({ src, isMute, handleToggleMute, inViewport }) => {
+    // Initilization
+    // const Options = {
+    //     threshold: 0.8
+    // }
     const videoRef = useRef(null);
+    // const boxRef = useRef(null);
+    const [playing, setPlaying] = useState(false);
+    // const { inViewport } = useInViewport(boxRef, Options);
+
     const handleMute = () => {
         handleToggleMute();
         videoRef.current.muted = !isMute;
     }
 
-    const { inViewport } = useInViewport(videoRef, Options);
+    const play = async () => {
+        try {
+            await videoRef.current.play();
+            setPlaying(true);
+
+        } catch (err) {
+            console.log({ err })
+        }
+    }
+
     useEffect(() => {
         if (inViewport) {
-            // console.log("play ");
-            videoRef.current.play();
+            if (!playing) {
+                play();
+            }
         } else {
-            videoRef.current.pause();
-            // console.log("pause ");
+            if (playing) {
+                videoRef.current.pause();
+                setPlaying(false);
+            }
         }
         return () => {
+            console.log("distory ");
             videoRef.current?.pause();
         }
     }, [inViewport])
@@ -114,7 +131,6 @@ const VideoComponent = ({ src, isMute, handleToggleMute }) => {
                 ref={videoRef}
                 src={src}
                 loop
-                autoPlay
                 muted={true}
                 playsInline //FIX iOS black screen
             />
@@ -135,6 +151,12 @@ const VideoComponent = ({ src, isMute, handleToggleMute }) => {
 
 
 export default function PostCard({ isMute, handleToggleMute }) {
+    const boxRef = useRef(null);
+    const Options = {
+        threshold: 0.8
+    }
+    const { inViewport } = useInViewport(boxRef, Options);
+
     const theme = useTheme();
     const text = 'Hi every one yes its me  \nhow are u okay fine \nno need to say';
     const [isCollapse, setIsCollapse] = useState(true);
@@ -187,16 +209,18 @@ export default function PostCard({ isMute, handleToggleMute }) {
                     <DotsThreeVertical size={24} />
                 </StyledIconContainer>
             </Stack>
-            <PostSlider>
-                <VideoComponent src={testVideoUrl} isMute={isMute} handleToggleMute={handleToggleMute} />
-                <VideoComponent src={testVideoUrl} isMute={isMute} handleToggleMute={handleToggleMute} />
-                <ImageContainer>
-                    <Image src={'https://loremflickr.com/320/240'} layout="fill" objectFit="cover" />
-                </ImageContainer>
-                <ImageContainer>
-                    <Image src={'https://loremflickr.com/320/240'} layout="fill" objectFit="cover" />
-                </ImageContainer>
-            </PostSlider>
+            <div ref={boxRef}>
+                <PostSlider>
+                    <VideoComponent src={testVideoUrl} isMute={isMute} handleToggleMute={handleToggleMute} inViewport={inViewport} />
+                    <VideoComponent src={'https://www.w3schools.com/html/mov_bbb.mp4'} isMute={isMute} handleToggleMute={handleToggleMute} inViewport={inViewport} />
+                    <ImageContainer>
+                        <Image src={'https://loremflickr.com/320/240'} layout="fill" objectFit="cover" />
+                    </ImageContainer>
+                    <ImageContainer>
+                        <Image src={'https://loremflickr.com/320/240'} layout="fill" objectFit="cover" />
+                    </ImageContainer>
+                </PostSlider>
+            </div>
 
 
             <Stack py={1} px={2} spacing={2}>

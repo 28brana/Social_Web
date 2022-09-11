@@ -2,8 +2,10 @@ import { Divider, IconButton, List, ListItem, ListItemButton, ListItemIcon, List
 import { styled, useTheme } from '@mui/material/styles';
 import { CaretDoubleLeft, Chat, Compass, Fire, House, Moon, Power, Sun, Users } from 'phosphor-react'
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { SIDEBAR } from '../../config'
 import useSettings from '../../hooks/useSetting';
+import { updateTabIndex } from '../../redux/slices/router';
 
 const RootStyle = styled('div')(({ theme, collapse }) => ({
     position: 'fixed',
@@ -92,45 +94,49 @@ const IOSSwitch = styled((props) => (
 }));
 
 export default function SideBar({ collapse, handleCollapse }) {
-    const [select, setSelect] = useState(0);
-    const handleSelect = (newValue) => {
-        setSelect(newValue)
-    }
     const theme = useTheme().palette;
+    const dispatch = useDispatch();
+    const tabIndex = useSelector((state) => state.router.tabIndex);
+
+    const handleSelect = (newValue) => {
+        dispatch(updateTabIndex(newValue));
+    }
+
+
     const { themeMode, toggleMode } = useSettings();
     const links = [
         {
             title: 'Home',
             icon: (
-                <House size={22} weight={select === 0 ? 'bold' : 'regular'} color={(select === 0 || theme.mode === 'dark') ? '#FFFFFF' : '#000000'} />
+                <House size={22} weight={tabIndex === 0 ? 'bold' : 'regular'} color={(tabIndex === 0 || theme.mode === 'dark') ? '#FFFFFF' : '#000000'} />
             ),
             path: '/'
         },
         {
             title: 'Messages',
             icon: (
-                <Chat size={20} weight={select === 1 ? 'bold' : 'regular'} color={(select === 1 || theme.mode === 'dark') ? '#FFFFFF' : '#000000'} />
+                <Chat size={20} weight={tabIndex === 1 ? 'bold' : 'regular'} color={(tabIndex === 1 || theme.mode === 'dark') ? '#FFFFFF' : '#000000'} />
             ),
             path: '/'
         },
         {
             title: 'Explore',
             icon: (
-                <Compass size={20} weight={select === 2 ? 'bold' : 'regular'} color={(select === 2 || theme.mode === 'dark') ? '#FFFFFF' : '#000000'} />
+                <Compass size={20} weight={tabIndex === 2 ? 'bold' : 'regular'} color={(tabIndex === 2 || theme.mode === 'dark') ? '#FFFFFF' : '#000000'} />
             ),
             path: '/'
         },
         {
             title: 'Notifications',
             icon: (
-                <Fire size={20} weight={select === 3 ? 'bold' : 'regular'} color={(select === 3 || theme.mode === 'dark') ? '#FFFFFF' : '#000000'} />
+                <Fire size={20} weight={tabIndex === 3 ? 'bold' : 'regular'} color={(tabIndex === 3 || theme.mode === 'dark') ? '#FFFFFF' : '#000000'} />
             ),
             path: '/'
         },
         {
             title: 'Friend Requests',
             icon: (
-                <Users size={20} weight={select === 4 ? 'bold' : 'regular'} color={(select === 4 || theme.mode === 'dark') ? '#FFFFFF' : '#000000'} />
+                <Users size={20} weight={tabIndex === 4 ? 'bold' : 'regular'} color={(tabIndex === 4 || theme.mode === 'dark') ? '#FFFFFF' : '#000000'} />
             ),
             path: '/'
         },
@@ -156,7 +162,7 @@ export default function SideBar({ collapse, handleCollapse }) {
             }}>
                 {
                     links.map((element, index) => (
-                        <StyledListItemButtom key={index} selected={select === index} onClick={() => handleSelect(index)}>
+                        <StyledListItemButtom key={index} selected={tabIndex === index} onClick={() => handleSelect(index)}>
                             {element.icon}
 
                             <ListItemText sx={{
@@ -164,7 +170,7 @@ export default function SideBar({ collapse, handleCollapse }) {
                                     display: 'none'
                                 }),
                             }}>
-                                <Typography fontWeight={select === index ? 600 : 400}>
+                                <Typography fontWeight={tabIndex === index ? 600 : 400}>
                                     {element.title}
                                 </Typography>
                             </ListItemText>

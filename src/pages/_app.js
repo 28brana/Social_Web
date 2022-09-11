@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { defaultSettings } from '../config';
 import { SettingsProvider } from '../contexts/SettingsContext'
-
+import { Provider as ReduxProvider } from 'react-redux';
+import { store } from '../redux/store';
 // Import slick css files
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -24,11 +25,13 @@ function MyApp({ Component, pageProps }) {
 
 
   return (
-    <SettingsProvider defaultSettings={settings}>
-      <ThemeProvider>
-        {getLayout(<Component {...pageProps} />)}
-      </ThemeProvider>
-    </SettingsProvider>
+    <ReduxProvider store={store}>
+      <SettingsProvider defaultSettings={settings}>
+        <ThemeProvider>
+          {getLayout(<Component {...pageProps} />)}
+        </ThemeProvider>
+      </SettingsProvider>
+    </ReduxProvider>
   )
 }
 

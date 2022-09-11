@@ -40,7 +40,7 @@ export default function Home() {
           <StoryBoard />
           <Stack spacing={2}>
             {
-              [...Array(5)].map((_, index) => (
+              postData.map((element, index) => (
                 <PostCard isMute={isMute} handleToggleMute={handleToggleMute} key={index} />
               ))
             }
@@ -53,3 +53,14 @@ export default function Home() {
     </RootStyle>
   )
 }
+
+
+const postData = [{
+  userId: '1',
+  name: 'prepInsta2023',
+  profilePic: '',
+  likes: 1550,
+  descriptions: 'Yo Yo \n Honey Singh and \n Gippy',
+  whoLikes: ['id', 'id', 'id'],
+  time: '1hour',
+},]
