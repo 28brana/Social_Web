@@ -28,10 +28,6 @@ const MainContainer = styled('div')(({ theme }) => ({
 
 
 export default function Home() {
-  const [isMute, setIsMute] = useState(true);
-  const handleToggleMute = () => {
-    setIsMute(!isMute);
-  }
 
   return (
     <RootStyle>
@@ -40,8 +36,8 @@ export default function Home() {
           <StoryBoard />
           <Stack spacing={2}>
             {
-              postData.map((element, index) => (
-                <PostCard isMute={isMute} handleToggleMute={handleToggleMute} key={index} />
+              postData.map((post, index) => (
+                <PostCard key={index} data={post} />
               ))
             }
           </Stack>
@@ -58,9 +54,48 @@ export default function Home() {
 const postData = [{
   userId: '1',
   name: 'prepInsta2023',
-  profilePic: '',
+  profilePic: 'https://i.pravatar.cc/30',
   likes: 1550,
   descriptions: 'Yo Yo \n Honey Singh and \n Gippy',
   whoLikes: ['id', 'id', 'id'],
   time: '1hour',
-},]
+  content: [
+    {
+      type: 'video',
+      link: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    }, {
+      type: 'video',
+      link: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    }, {
+      type: 'image',
+      link: 'https://loremflickr.com/320/240',
+    }, {
+      type: 'image',
+      link: 'https://loremflickr.com/320/240',
+    },
+  ]
+}, {
+  userId: '2',
+  name: 'prepInsta2022',
+  profilePic: 'https://i.pravatar.cc/30',
+  likes: 1550,
+  descriptions: 'Yo Yo \n Honey Singh and \n Gippy',
+  whoLikes: ['id', 'id', 'id'],
+  time: '1hour',
+  content: [
+    {
+      type: 'video',
+      link: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    }, {
+      type: 'video',
+      link: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    }, {
+      type: 'image',
+      link: 'https://loremflickr.com/320/240',
+    }, {
+      type: 'image',
+      link: 'https://loremflickr.com/320/240',
+    },
+  ]
+}
+]
