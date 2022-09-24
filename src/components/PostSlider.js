@@ -102,11 +102,11 @@ const VideoComponent = memo(({ src, inViewport, isCurrent }) => {
             if (!playing) {
                 play();
             }
-            // console.log("Play", isCurrent);
+            console.log("Play", isCurrent);
         } else {
             if (playing) {
                 videoRef.current.pause();
-                // console.log("Pause", isCurrent);
+                console.log("Pause", isCurrent);
 
             }
             setPlaying(false);

@@ -1,5 +1,6 @@
 import { Divider, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Switch, Typography } from '@mui/material';
 import { styled, useTheme } from '@mui/material/styles';
+import Link from 'next/link';
 import { CaretDoubleLeft, Chat, Compass, Fire, House, Moon, Power, Sun, Users } from 'phosphor-react'
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -117,28 +118,28 @@ export default function SideBar({ collapse, handleCollapse }) {
             icon: (
                 <Chat size={20} weight={tabIndex === 1 ? 'bold' : 'regular'} color={(tabIndex === 1 || theme.mode === 'dark') ? '#FFFFFF' : '#000000'} />
             ),
-            path: '/'
+            path: '/chats'
         },
         {
             title: 'Explore',
             icon: (
                 <Compass size={20} weight={tabIndex === 2 ? 'bold' : 'regular'} color={(tabIndex === 2 || theme.mode === 'dark') ? '#FFFFFF' : '#000000'} />
             ),
-            path: '/'
+            path: '/explore'
         },
         {
             title: 'Notifications',
             icon: (
                 <Fire size={20} weight={tabIndex === 3 ? 'bold' : 'regular'} color={(tabIndex === 3 || theme.mode === 'dark') ? '#FFFFFF' : '#000000'} />
             ),
-            path: '/'
+            path: '/notifications'
         },
         {
             title: 'Friend Requests',
             icon: (
                 <Users size={20} weight={tabIndex === 4 ? 'bold' : 'regular'} color={(tabIndex === 4 || theme.mode === 'dark') ? '#FFFFFF' : '#000000'} />
             ),
-            path: '/'
+            path: '/friends'
         },
 
     ]
@@ -162,19 +163,22 @@ export default function SideBar({ collapse, handleCollapse }) {
             }}>
                 {
                     links.map((element, index) => (
-                        <StyledListItemButtom key={index} selected={tabIndex === index} onClick={() => handleSelect(index)}>
-                            {element.icon}
+                        <Link href={element.path} key={index}>
+                            <StyledListItemButtom selected={tabIndex === index} onClick={() => handleSelect(index)}>
 
-                            <ListItemText sx={{
-                                ...(collapse && {
-                                    display: 'none'
-                                }),
-                            }}>
-                                <Typography fontWeight={tabIndex === index ? 600 : 400}>
-                                    {element.title}
-                                </Typography>
-                            </ListItemText>
-                        </StyledListItemButtom>
+                                {element.icon}
+
+                                <ListItemText sx={{
+                                    ...(collapse && {
+                                        display: 'none'
+                                    }),
+                                }}>
+                                    <Typography fontWeight={tabIndex === index ? 600 : 400}>
+                                        {element.title}
+                                    </Typography>
+                                </ListItemText>
+                            </StyledListItemButtom>
+                        </Link>
                     ))
                 }
             </List>

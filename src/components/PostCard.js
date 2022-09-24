@@ -1,12 +1,11 @@
-import { Avatar, Typography, Stack, Box, Button, TextField, CardMedia, Card, IconButton } from '@mui/material';
+// mui
+import { Avatar, Box, Button, Stack, TextField, Typography } from '@mui/material';
 import { styled, useTheme } from '@mui/material/styles';
-import Image from 'next/image';
-import { BookmarkSimple, Chat, DotsThreeVertical, Fire, FireSimple, PaperPlaneTilt, SpeakerSimpleHigh, SpeakerSimpleSlash } from 'phosphor-react';
-import { useEffect, useRef, useState } from 'react';
-import { useInViewport } from 'react-in-viewport';
-import { useDispatch, useSelector } from 'react-redux';
-import { testVideoUrl } from '../config';
-import { toggleMute } from '../redux/slices/common';
+// icon
+import { BookmarkSimple, Chat, DotsThreeVertical, Fire, FireSimple, PaperPlaneTilt } from 'phosphor-react';
+// hooks
+import { memo, useState } from 'react';
+// components
 import PostCommentDialogBox from './PostCommentDialogBox';
 import PostDialogBox from './PostDialogBox';
 import PostSlider from './PostSlider';
@@ -63,7 +62,7 @@ const StyledIconContainer = styled(Box)(({ theme }) => ({
 
 
 
-export default function PostCard({ data }) {
+function PostCard({ data }) {
     // States
     const [isCollapse, setIsCollapse] = useState(true);
     const [comment, setComment] = useState('');
@@ -183,3 +182,5 @@ export default function PostCard({ data }) {
         </RootStyle>
     )
 }
+
+export default memo(PostCard);

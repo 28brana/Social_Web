@@ -1,7 +1,9 @@
-import { Box, ImageList, ImageListItem, Typography } from '@mui/material';
+import { Box, Dialog, ImageList, ImageListItem, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Stack } from '@mui/system';
 import { Chat, FireSimple } from 'phosphor-react';
+import { useState } from 'react';
+import PostCard from '../components/PostCard';
 
 import Layout from "../layouts";
 Explore.getLayout = function getLayout(page) {
@@ -38,13 +40,12 @@ const StyledItem = styled(ImageListItem)(({ theme }) => ({
 
 
 export default function Explore() {
-
-
+    const [open, setDialog] = useState(false)
     return (
         <RootStyle>
             <ImageList variant="masonry" cols={4} gap={16}>
                 {itemData.map((item) => (
-                    <StyledItem key={item.img}>
+                    <StyledItem key={item.img} onClick={() => setDialog(true)}>
                         <img
                             src={`${item.img}?w=248&fit=crop&auto=format`}
                             srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
@@ -61,14 +62,42 @@ export default function Explore() {
                                 <Typography>30</Typography>
                             </Stack>
                         </Box>
+
+
                     </StyledItem>
                 ))}
             </ImageList>
+            <Dialog onClose={() => setDialog(false)} open={open}>
+                <PostCard data={post} />
+            </Dialog>
         </RootStyle>
     )
 }
 
-
+const post = {
+    userId: '1',
+    name: 'prepInsta2023',
+    profilePic: 'https://i.pravatar.cc/30',
+    likes: 1550,
+    descriptions: 'Yo Yo \n Honey Singh and \n Gippy',
+    whoLikes: ['id', 'id', 'id'],
+    time: '1hour',
+    content: [
+        {
+            type: 'video',
+            link: 'https://www.w3schools.com/html/mov_bbb.mp4',
+        }, {
+            type: 'video',
+            link: 'https://www.w3schools.com/html/mov_bbb.mp4',
+        }, {
+            type: 'image',
+            link: 'https://loremflickr.com/320/240',
+        }, {
+            type: 'image',
+            link: 'https://loremflickr.com/320/240',
+        },
+    ]
+};
 
 const itemData = [
     {
