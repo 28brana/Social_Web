@@ -151,7 +151,7 @@ const data = {
             profileImage: 'https://i.pravatar.cc/30',
             content: 'Rahul starts follow you',
             image: null,
-            isSeen: true,
+            isSeen: false,
             time: '1hour ago',
         }, {
             id: '3',
@@ -159,7 +159,7 @@ const data = {
             profileImage: 'https://i.pravatar.cc/30',
             content: 'Suman creates a new Post',
             image: 'https://loremflickr.com/320/240',
-            isSeen: false,
+            isSeen: true,
             time: '1hour ago',
         }
     ],

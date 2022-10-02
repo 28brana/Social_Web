@@ -6,15 +6,15 @@ import { useTheme } from '@mui/material/styles';
 
 const optionsList = [
     {
-        title: 'report'
+        title: 'Report'
     }, {
-        title: 'unFollow'
+        title: 'Unfollow'
     }, {
-        title: 'block'
+        title: 'Block'
     }, {
-        title: 'copy'
+        title: 'Copy'
     }, {
-        title: 'cancel'
+        title: 'Cancel'
     }
 ]
 
@@ -24,10 +24,11 @@ export default function PostDialogBox({ open, onClose }) {
         <Dialog onClose={onClose} open={open} maxWidth='xs' fullWidth>
             <List sx={{ p: 0 }}>
                 {optionsList.map((element, index) => (
-                    <ListItem button onClick={() => handleListItemClick(element)} key={index} sx={{
+                    <ListItem button key={index} sx={{
                         borderBottom: "1px solid",
                         borderColor: theme.palette.border,
-                        textAlign: 'center'
+                        textAlign: 'center',
+                        color: element.title == 'Report' && 'tomato',
                     }}>
                         <ListItemText primary={element.title} />
                     </ListItem>
