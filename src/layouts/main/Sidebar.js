@@ -5,6 +5,7 @@ import { CaretDoubleLeft, Chat, Compass, Fire, House, Moon, Power, Sun, Users } 
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { SIDEBAR } from '../../config'
+import useResponsive from '../../hooks/useResponsive';
 import useSettings from '../../hooks/useSetting';
 import { updateTabIndex } from '../../redux/slices/router';
 
@@ -39,8 +40,6 @@ const StyledListItemButtom = styled(ListItemButton)(({ theme }) => ({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: '12px',
-
-
 }));
 
 const IOSSwitch = styled((props) => (
@@ -95,6 +94,7 @@ const IOSSwitch = styled((props) => (
 }));
 
 export default function SideBar({ collapse, handleCollapse }) {
+
     const theme = useTheme().palette;
     const dispatch = useDispatch();
     const tabIndex = useSelector((state) => state.router.tabIndex);
@@ -102,6 +102,7 @@ export default function SideBar({ collapse, handleCollapse }) {
     const handleSelect = (newValue) => {
         dispatch(updateTabIndex(newValue));
     }
+
 
 
     const { themeMode, toggleMode } = useSettings();
