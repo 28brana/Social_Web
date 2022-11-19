@@ -9,6 +9,7 @@ import { memo, useState } from 'react';
 import PostCommentDialogBox from './PostCommentDialogBox';
 import PostDialogBox from './PostDialogBox';
 import PostSlider from './PostSlider';
+import ShareDialogBox from './ShareDialogBox';
 // import myVideo from '../assets/video.mp4'
 const RootStyle = styled('div')(({ theme }) => ({
     borderRadius: 8,
@@ -69,6 +70,7 @@ function PostCard({ data }) {
     const [like, setLike] = useState(false);
     const [open, setOpen] = useState(false);
     const [openComment, setOpenComment] = useState(false);
+    const [openShare, setOpenShare] = useState(false);
     // Theme
     const theme = useTheme();
 
@@ -96,6 +98,9 @@ function PostCard({ data }) {
     }
     const handleClose = () => {
         setOpen(false);
+    };
+    const handleCloseShare = () => {
+        setOpenShare(false);
     };
 
 
@@ -134,7 +139,7 @@ function PostCard({ data }) {
                         <StyledIconContainer onClick={handleOpenComment}>
                             <Chat size={24} />
                         </StyledIconContainer>
-                        <StyledIconContainer>
+                        <StyledIconContainer onClick={() => setOpenShare(true)}>
                             <PaperPlaneTilt size={24} />
                         </StyledIconContainer>
                     </Stack>
@@ -179,6 +184,7 @@ function PostCard({ data }) {
             </Stack>
             <PostDialogBox open={open} onClose={handleClose} />
             <PostCommentDialogBox open={openComment} onClose={handleCloseComment} />
+            <ShareDialogBox open={openShare} onClose={handleCloseShare} />
         </RootStyle>
     )
 }

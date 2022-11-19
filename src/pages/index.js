@@ -5,6 +5,7 @@ import ImportBoard from '../components/ImportBoard';
 import PostCard from '../components/PostCard';
 import StoryBoard from "../components/StoryBoard";
 import SuggestionsBoard from '../components/SuggestionsBoard';
+import useResponsive from '../hooks/useResponsive';
 import Layout from "../layouts";
 Home.getLayout = function getLayout(page) {
   return <Layout>{page}</Layout>;
@@ -29,13 +30,13 @@ const MainContainer = styled('div')(({ theme }) => ({
 
 
 export default function Home() {
+  const isDesktop = useResponsive('up', 'lg');
 
   return (
     <RootStyle>
       <MainContainer>
         <Stack spacing={2}>
           {/* <StoryBoard /> */}
-          <ImportBoard />
           <Stack spacing={2}>
             {
               postData.map((post, index) => (
@@ -45,9 +46,13 @@ export default function Home() {
           </Stack>
         </Stack>
       </MainContainer>
-      <SuggestionsContainer>
-        <SuggestionsBoard />
-      </SuggestionsContainer>
+      {
+        isDesktop && (
+          <SuggestionsContainer>
+            <SuggestionsBoard />
+          </SuggestionsContainer>)
+      }
+
     </RootStyle>
   )
 }

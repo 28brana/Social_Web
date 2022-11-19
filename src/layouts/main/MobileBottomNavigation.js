@@ -71,7 +71,7 @@ export default function MobileBottomNavigation() {
 
     ]
     return (
-        <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+        <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: '9999' }} elevation={3}>
             <BottomNavigation
                 showLabels={false}
                 sx={{
