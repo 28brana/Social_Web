@@ -27,24 +27,21 @@ export default function Login() {
         }}>
             <RootStyle>
                 <Stack>
-                    <Typography variant='h4'>Login </Typography>
-                    <Stack mt={2}>
-                        <label htmlFor="username">User Name</label>
+                    <Typography variant='h4'>Forget Password </Typography>
+                    <Stack mt={2} mb={4}>
+                        <label htmlFor="username">Enter Email or phone Number</label>
                         <OutlinedInput placeholder="Enter username" id="username" />
                     </Stack>
-                    <Stack mt={2} mb={4}>
-                        <label htmlFor="username">Password</label>
-                        <OutlinedInput placeholder="Enter password" id="password" />
-                    </Stack>
-                    <Button variant='contained' color="secondary">Login in </Button>
+
+                    <Button variant='contained' color="secondary">Send Link </Button>
                     <Stack alignItems={'center'} mt={2}>
                         <Typography variant='overline'>Dont have a account ?
                             <Link href={'./register'}>
                                 sign up
                             </Link>
                         </Typography>
-                        <Link href={'./forgetpassword'}>
-                            <Typography variant='overline' sx={{ cursor: 'pointer' }}>forget password</Typography>
+                        <Link href={'./login'}>
+                            <Typography variant='overline' sx={{ cursor: 'pointer' }}>Go to Login</Typography>
                         </Link>
                     </Stack>
                 </Stack>

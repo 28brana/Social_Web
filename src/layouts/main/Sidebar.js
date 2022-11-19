@@ -1,13 +1,14 @@
 import { Divider, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Switch, Typography } from '@mui/material';
 import { styled, useTheme } from '@mui/material/styles';
 import Link from 'next/link';
-import { CaretDoubleLeft, Chat, Compass, Fire, House, Moon, Power, Sun, Users } from 'phosphor-react'
-import { useState } from 'react';
+import { CaretDoubleLeft, Chat, Compass, Fire, House, Moon, Plus, Power, Sun, UploadSimple, Users } from 'phosphor-react'
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { SIDEBAR } from '../../config'
 import useResponsive from '../../hooks/useResponsive';
 import useSettings from '../../hooks/useSetting';
 import { updateTabIndex } from '../../redux/slices/router';
+import { useRouter } from 'next/router'
 
 const RootStyle = styled('div')(({ theme, collapse }) => ({
     position: 'fixed',
@@ -102,6 +103,20 @@ export default function SideBar({ collapse, handleCollapse }) {
     const handleSelect = (newValue) => {
         dispatch(updateTabIndex(newValue));
     }
+    const { pathname } = useRouter();
+    useEffect(() => {
+        let currentIndex = 0;
+        switch (pathname) {
+            case '/': currentIndex = 0; break;
+            case '/chats': currentIndex = 1; break;
+            case '/explore': currentIndex = 2; break;
+            case '/notifications': currentIndex = 3; break;
+            case '/upload': currentIndex = 4; break;
+            default: break;
+        }
+        handleSelect(currentIndex);
+    }, [pathname])
+
 
 
 
@@ -136,12 +151,13 @@ export default function SideBar({ collapse, handleCollapse }) {
             path: '/notifications'
         },
         {
-            title: 'Friend Requests',
+            title: 'Upload',
             icon: (
-                <Users size={20} weight={tabIndex === 4 ? 'bold' : 'regular'} color={(tabIndex === 4 || theme.mode === 'dark') ? '#FFFFFF' : '#000000'} />
+                <UploadSimple size={20} weight={tabIndex === 4 ? 'bold' : 'regular'} color={(tabIndex === 4 || theme.mode === 'dark') ? '#FFFFFF' : '#000000'} />
             ),
-            path: '/friends'
+            path: '/upload'
         },
+
 
     ]
     return (

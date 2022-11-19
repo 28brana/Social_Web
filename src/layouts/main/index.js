@@ -20,7 +20,7 @@ export default function MainLayout({ children }) {
         setCollapse(!collapse);
     }
     const isDesktop = useResponsive('up', 'md');
-    console.log({ isDesktop });
+    // console.log({ isDesktop });
 
     return (
         <>

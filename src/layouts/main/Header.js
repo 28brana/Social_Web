@@ -1,7 +1,8 @@
-import { AppBar, Avatar, InputBase, Stack, Toolbar, Typography } from '@mui/material'
+import { AppBar, Avatar, IconButton, InputBase, Stack, Toolbar, Typography } from '@mui/material'
 import React from 'react'
 import { styled } from '@mui/material/styles';
-import { MagnifyingGlass } from 'phosphor-react';
+import { MagnifyingGlass, Plus } from 'phosphor-react';
+import useResponsive from '../../hooks/useResponsive';
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
     background: theme.palette.background.default,
     boxShadow: 'none',
@@ -48,11 +49,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 export default function Header() {
+    const isDesktop = useResponsive('up', 'md');
     return (
         <StyledAppBar >
             <Toolbar>
-                <Stack direction='row' justifyContent={'space-between'} sx={{ width: '100%', padding: '0 80px' }}>
-                    <Typography variant='h6' color='primary'>Logo.</Typography>
+                <Stack direction='row' justifyContent={'space-between'} alignItems={'center'} sx={{ width: '100%', padding: { md: '0 80px' } }}>
+                    <Typography variant='body1' color='primary'>Logo.</Typography>
                     <Search>
                         <SearchIconWrapper>
                             <MagnifyingGlass weight='bold' />
@@ -62,7 +64,10 @@ export default function Header() {
                             inputProps={{ 'aria-label': 'search' }}
                         />
                     </Search>
-                    <Avatar />
+                    {
+                        isDesktop ? <Avatar /> : <IconButton><Plus /></IconButton>
+                    }
+
                 </Stack>
             </Toolbar>
         </StyledAppBar>

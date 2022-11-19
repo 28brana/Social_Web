@@ -1,4 +1,4 @@
-import { BottomNavigation, BottomNavigationAction, Divider, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Paper, Switch, Typography } from '@mui/material';
+import { Avatar, BottomNavigation, BottomNavigationAction, Divider, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Paper, Switch, Typography } from '@mui/material';
 import { styled, useTheme } from '@mui/material/styles';
 import Link from 'next/link';
 import { CaretDoubleLeft, Chat, Compass, Fire, House, Moon, Power, Sun, Users } from 'phosphor-react'
@@ -27,7 +27,7 @@ export default function MobileBottomNavigation() {
     }
 
     const isDesktop = useResponsive('up', 'md');
-    console.log({ isDesktop });
+    // console.log({ isDesktop });
 
 
     const { themeMode, toggleMode } = useSettings();
@@ -35,44 +35,55 @@ export default function MobileBottomNavigation() {
         {
             title: 'Home',
             icon: (
-                <House size={22} weight={tabIndex === 0 ? 'bold' : 'regular'} color={(tabIndex === 0 || theme.mode === 'dark') ? '#FFFFFF' : '#000000'} />
+                <House size={22} />
             ),
             path: '/'
         },
         {
             title: 'Messages',
             icon: (
-                <Chat size={20} weight={tabIndex === 1 ? 'bold' : 'regular'} color={(tabIndex === 1 || theme.mode === 'dark') ? '#FFFFFF' : '#000000'} />
+                <Chat size={20} />
             ),
             path: '/chats'
         },
         {
             title: 'Explore',
             icon: (
-                <Compass size={20} weight={tabIndex === 2 ? 'bold' : 'regular'} color={(tabIndex === 2 || theme.mode === 'dark') ? '#FFFFFF' : '#000000'} />
+                <Compass size={20} />
             ),
             path: '/explore'
         },
         {
             title: 'Notifications',
             icon: (
-                <Fire size={20} weight={tabIndex === 3 ? 'bold' : 'regular'} color={(tabIndex === 3 || theme.mode === 'dark') ? '#FFFFFF' : '#000000'} />
+                <Fire size={20} />
             ),
             path: '/notifications'
         },
         {
-            title: 'Friend Requests',
+            title: 'profile',
             icon: (
-                <Users size={20} weight={tabIndex === 4 ? 'bold' : 'regular'} color={(tabIndex === 4 || theme.mode === 'dark') ? '#FFFFFF' : '#000000'} />
+                <Avatar sx={{ width: 25, height: 25 }} />
             ),
-            path: '/friends'
+            path: '/profile'
         },
+
 
     ]
     return (
         <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
             <BottomNavigation
-                // showLabels
+                showLabels={false}
+                sx={{
+                    '.MuiBottomNavigationAction-root': {
+                        color: theme.icon.neutral
+
+                    },
+                    '.Mui-selected': {
+                        color: theme.icon.primary
+                    }
+                }}
+
                 value={tabIndex}
                 onChange={(event, newValue) => {
                     handleSelect(newValue);
@@ -80,7 +91,7 @@ export default function MobileBottomNavigation() {
             >
                 {
                     links.map((element, index) => (
-                        <BottomNavigationAction key={index} label={element.title} icon={element.icon} />
+                        <BottomNavigationAction key={index} icon={element.icon} />
                     ))
                 }
 

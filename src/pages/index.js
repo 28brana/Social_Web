@@ -1,6 +1,7 @@
 import { Box, Stack } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useState } from 'react';
+import ImportBoard from '../components/ImportBoard';
 import PostCard from '../components/PostCard';
 import StoryBoard from "../components/StoryBoard";
 import SuggestionsBoard from '../components/SuggestionsBoard';
@@ -33,7 +34,8 @@ export default function Home() {
     <RootStyle>
       <MainContainer>
         <Stack spacing={2}>
-          <StoryBoard />
+          {/* <StoryBoard /> */}
+          <ImportBoard />
           <Stack spacing={2}>
             {
               postData.map((post, index) => (
