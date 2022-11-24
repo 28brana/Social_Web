@@ -105,7 +105,7 @@ export default function SideBar({ collapse, handleCollapse }) {
     }
     const { pathname } = useRouter();
     useEffect(() => {
-        let currentIndex = 0;
+        let currentIndex = -1;
         switch (pathname) {
             case '/': currentIndex = 0; break;
             case '/chats': currentIndex = 1; break;

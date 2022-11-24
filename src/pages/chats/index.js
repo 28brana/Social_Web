@@ -2,9 +2,10 @@ import { Box, Button, Container, List, ImageList, ImageListItem, ListItem, Stack
 import { styled } from "@mui/material/styles";
 import Image from "next/image";
 import { useState } from "react";
-import ChatBox from "../components/ChatBox";
+import ChatBox from "../../components/ChatBox";
+import useResponsive from "../../hooks/useResponsive";
 
-import Layout from "../layouts";
+import Layout from "../../layouts";
 Chats.getLayout = function getLayout(page) {
     return <Layout>{page}</Layout>;
 };
@@ -22,12 +23,16 @@ const SideBar = styled(Box)(({ theme }) => ({
     },
     '::-webkit-scrollbar-track ': {
         background: '#ddd',
-    }
+    },
+    [theme.breakpoints.down('md')]: {
+        width: '100%',
+    },
 
 }));
 
 export default function Chats() {
     const [selectedIndex, setSelectedIndex] = useState(0);
+    const isDesktop = useResponsive('up', 'md');
 
     return (
         <Container>
@@ -42,6 +47,9 @@ export default function Chats() {
                                     sx={{
                                         width: '100%',
                                     }}
+                                    {...(!isDesktop && {
+                                        href: '/chats/id'
+                                    })}
                                     key={index}
                                     selected={index === selectedIndex}
                                     onClick={() => setSelectedIndex(index)}>
@@ -67,12 +75,12 @@ export default function Chats() {
                         }
                     </List>
                 </SideBar>
-                <Box sx={{
+                {isDesktop && <Box sx={{
                     width: '100%',
                     height: '90vh'
                 }}>
                     <ChatBox />
-                </Box>
+                </Box>}
             </Stack>
 
 

@@ -31,7 +31,7 @@ export default function ShareDialogBox({ open, onClose }) {
         setSelected(arr);
     }
 
-    console.log(selected);
+    // console.log(selected);
     const theme = useTheme();
 
     return (

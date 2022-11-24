@@ -3,6 +3,7 @@ import React from 'react'
 import { styled } from '@mui/material/styles';
 import { MagnifyingGlass, Plus } from 'phosphor-react';
 import useResponsive from '../../hooks/useResponsive';
+import Link from 'next/link';
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
     background: theme.palette.background.default,
     boxShadow: 'none',
@@ -53,7 +54,12 @@ export default function Header() {
     return (
         <StyledAppBar >
             <Toolbar>
-                <Stack direction='row' justifyContent={'space-between'} alignItems={'center'} sx={{ width: '100%', padding: { md: '0 80px' } }}>
+                <Stack
+                    direction='row'
+                    justifyContent={'space-between'}
+                    alignItems={'center'}
+                    gap={isDesktop ? 0 : 2}
+                    sx={{ width: '100%', padding: { md: '0 80px' } }}>
                     <Typography variant='body1' color='primary'>Logo.</Typography>
                     <Search>
                         <SearchIconWrapper>
@@ -65,7 +71,11 @@ export default function Header() {
                         />
                     </Search>
                     {
-                        isDesktop ? <Avatar /> : <IconButton><Plus /></IconButton>
+                        isDesktop ?
+                            <Link href={'/profile'}><Avatar sx={{ cursor: 'pointer' }} /></Link> :
+                            <Link href={'/upload'}>
+                                <IconButton><Plus /></IconButton>
+                            </Link>
                     }
 
                 </Stack>

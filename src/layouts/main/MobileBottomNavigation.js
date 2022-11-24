@@ -1,8 +1,9 @@
 import { Avatar, BottomNavigation, BottomNavigationAction, Divider, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Paper, Switch, Typography } from '@mui/material';
 import { styled, useTheme } from '@mui/material/styles';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { CaretDoubleLeft, Chat, Compass, Fire, House, Moon, Power, Sun, Users } from 'phosphor-react'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { SIDEBAR } from '../../config'
 import useResponsive from '../../hooks/useResponsive';
@@ -27,7 +28,20 @@ export default function MobileBottomNavigation() {
     }
 
     const isDesktop = useResponsive('up', 'md');
-    // console.log({ isDesktop });
+    const { pathname } = useRouter();
+    useEffect(() => {
+        let currentIndex = -1;
+        switch (pathname) {
+            case '/': currentIndex = 0; break;
+            case '/chats': currentIndex = 1; break;
+            case '/explore': currentIndex = 2; break;
+            case '/notifications': currentIndex = 3; break;
+            case '/profile': currentIndex = 4; break;
+            default: break;
+        }
+        handleSelect(currentIndex);
+    }, [pathname])
+    console.log({ tabIndex });
 
 
     const { themeMode, toggleMode } = useSettings();
@@ -63,7 +77,15 @@ export default function MobileBottomNavigation() {
         {
             title: 'profile',
             icon: (
-                <Avatar sx={{ width: 25, height: 25 }} />
+                <Avatar
+                    sx={{
+                        width: 26,
+                        height: 26,
+                        border: '1px solid',
+                        ...(tabIndex === 4 && {
+                            borderColor: theme.background.secondary,
+                        })
+                    }} />
             ),
             path: '/profile'
         },
@@ -77,10 +99,9 @@ export default function MobileBottomNavigation() {
                 sx={{
                     '.MuiBottomNavigationAction-root': {
                         color: theme.icon.neutral
-
                     },
                     '.Mui-selected': {
-                        color: theme.icon.primary
+                        color: `${theme.background.secondary} !important`,
                     }
                 }}
 
@@ -91,11 +112,9 @@ export default function MobileBottomNavigation() {
             >
                 {
                     links.map((element, index) => (
-                        <BottomNavigationAction key={index} icon={element.icon} />
+                        <BottomNavigationAction href={element.path} key={index} icon={element.icon} />
                     ))
                 }
-
-
             </BottomNavigation>
         </Paper>
 

@@ -13,6 +13,9 @@ const StyledContainer = styled('div')(({ theme, collapse }) => ({
     [theme.breakpoints.up('md')]: {
         paddingLeft: collapse ? SIDEBAR.MAIN_SIDEBAR_COLLAPSE_WIDTH : SIDEBAR.MAIN_SIDEBAR_WIDTH,
     },
+    [theme.breakpoints.down('md')]: {
+        paddingBottom:HEADER.MAIN_DESKTOP_HEIGHT,
+    },
 }));
 export default function MainLayout({ children }) {
     const [collapse, setCollapse] = useState(false);

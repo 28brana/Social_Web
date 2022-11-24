@@ -1,9 +1,11 @@
 import { Avatar, Box, Button, Dialog, ImageList, ImageListItem, Stack, Tab, Tabs, Typography } from '@mui/material';
 import { styled, useTheme } from '@mui/material/styles';
+import Link from 'next/link';
 import { BookmarkSimple, Chat, FireSimple, GridFour } from 'phosphor-react';
 import { useState } from 'react';
-import PostCard from '../components/PostCard';
-import Layout from '../layouts';
+import PostCard from '../../components/PostCard';
+import useResponsive from '../../hooks/useResponsive';
+import Layout from '../../layouts';
 
 
 const RootStyle = styled('div')(({ theme }) => ({
@@ -37,6 +39,7 @@ Profile.getLayout = function getLayout(page) {
     return <Layout>{page}</Layout>;
 };
 export default function Profile() {
+    const isDesktop = useResponsive('up', 'md');
     const theme = useTheme();
     const [tab, setTab] = useState(0);
     const handleChangeTab = (e, newValue) => {
@@ -46,12 +49,20 @@ export default function Profile() {
 
     return (
         <RootStyle>
-            <Stack direction='row' p={5} spacing={10} alignItems='center' justifyContent={'center'}>
+            <Stack direction={isDesktop ? 'row' : 'column'} p={5} spacing={isDesktop ? 10 : 5} alignItems='center' justifyContent={'center'}>
                 <Avatar src={'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e'} sx={{ height: '140px', width: '140px' }} />
                 <Stack spacing={3}>
                     <Stack direction='row' spacing={2}>
                         <Typography variant='h4'>_bharatrana</Typography>
-                        <Button variant='outlined' size={'small'} color='secondary'>Edit profile</Button>
+                        <Link href={'/profile/id'}>
+                            <Button
+                                variant='outlined'
+                                size={'small'}
+                                color='secondary'
+                            >
+                                Edit profile
+                            </Button>
+                        </Link>
                     </Stack>
                     <Stack direction='row' spacing={3}>
                         <Stack direction='row' spacing={0.5}>
@@ -99,7 +110,7 @@ export default function Profile() {
                     </Tabs>
                 </Box>
                 <TabPanel value={tab} index={0} >
-                    <ImageList cols={4} gap={16}  >
+                    <ImageList cols={isDesktop ? 4 : 3} gap={16}  >
                         {itemData.map((item) => (
                             <StyledItem key={item.img} onClick={() => setDialog(true)} >
                                 <img
@@ -126,7 +137,7 @@ export default function Profile() {
 
                 </TabPanel>
                 <TabPanel value={tab} index={1} sx={{ color: 'red' }}>
-                    <ImageList cols={4} gap={16}  >
+                    <ImageList cols={isDesktop ? 4 : 3} gap={16}  >
                         {itemData.map((item) => (
                             <StyledItem key={item.img} onClick={() => setDialog(true)} >
                                 <img

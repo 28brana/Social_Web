@@ -4,6 +4,7 @@ import { Stack } from '@mui/system';
 import { Chat, FireSimple } from 'phosphor-react';
 import { useState } from 'react';
 import PostCard from '../components/PostCard';
+import useResponsive from '../hooks/useResponsive';
 
 import Layout from "../layouts";
 Explore.getLayout = function getLayout(page) {
@@ -40,10 +41,12 @@ const StyledItem = styled(ImageListItem)(({ theme }) => ({
 
 
 export default function Explore() {
+    const isDesktop = useResponsive('up', 'md');
+
     const [open, setDialog] = useState(false)
     return (
         <RootStyle>
-            <ImageList variant="masonry" cols={4} gap={16}>
+            <ImageList variant="masonry" cols={isDesktop ? 4 : 3} gap={16}>
                 {itemData.map((item) => (
                     <StyledItem key={item.img} onClick={() => setDialog(true)}>
                         <img
