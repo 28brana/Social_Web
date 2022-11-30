@@ -61,10 +61,6 @@ export default function Notifications() {
                                 </ListItem>
                             ))
                         }
-
-
-
-
                     </List>
                 </Collapse>
             </List>
@@ -80,7 +76,7 @@ export default function Notifications() {
                         <Box sx={{ position: 'relative' }} key={index}>
                             <ListItem button={true} sx={{
                                 ...(!element.isSeen && {
-                                    background: '#E6E6FA'
+                                    background: theme.palette.mode === 'light' ? '#ebccff' : '#9900ff'
                                 })
                             }} >
                                 <ListItemAvatar>
